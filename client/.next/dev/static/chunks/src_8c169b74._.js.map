@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///home/lorenzo/Documents/Projects/project%202/client/src/utils/api.ts"],"sourcesContent":["import axios from 'axios';\n\nconst api = axios.create({\n    baseURL: 'http://localhost:5000/api',\n    headers: {\n        'Content-Type': 'application/json',\n    },\n});\n\napi.interceptors.request.use(\n    (config) => {\n        const token = localStorage.getItem('token');\n        if (token) {\n            config.headers.Authorization = `Bearer ${token}`;\n        }\n        return config;\n    },\n    (error) => Promise.reject(error)\n);\n\nexport default api;\n"],"names":[],"mappings":";;;;AAAA;;AAEA,MAAM,MAAM,mJAAK,CAAC,MAAM,CAAC;IACrB,SAAS;IACT,SAAS;QACL,gBAAgB;IACpB;AACJ;AAEA,IAAI,YAAY,CAAC,OAAO,CAAC,GAAG,CACxB,CAAC;IACG,MAAM,QAAQ,aAAa,OAAO,CAAC;IACnC,IAAI,OAAO;QACP,OAAO,OAAO,CAAC,aAAa,GAAG,CAAC,OAAO,EAAE,OAAO;IACpD;IACA,OAAO;AACX,GACA,CAAC,QAAU,QAAQ,MAAM,CAAC;uCAGf"}}]
+}

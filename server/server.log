@@ -1,0 +1,264 @@
+[dotenv@17.2.3] injecting env (5) from .env -- tip: 🔄 add secrets lifecycle management: https://dotenvx.com/ops
+DEBUG: sendVerificationEmail imported: [AsyncFunction: sendVerificationEmail]
+[dotenv@17.2.3] injecting env (0) from .env -- tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit
+Server running on port 5000
+MongoDB Connected: localhost
+DEBUG: Request received: POST /api/auth/register
+DEBUG: registerUser called
+Creating user...
+User created: new ObjectId('692df44be5f2d612f73ca5a7')
+Sending email...
+DEBUG: Attempting to send email to: testuser_debug_4@example.com
+Email di verifica inviata a testuser_debug_4@example.com {
+  data: null,
+  error: {
+    statusCode: 403,
+    name: 'validation_error',
+    message: 'You can only send testing emails to your own email address (pelanda3246@gmail.com). To send emails to other recipients, please verify a domain at resend.com/domains, and change the `from` address to an email using this domain.'
+  },
+  headers: {
+    'cf-cache-status': 'DYNAMIC',
+    'cf-ray': '9a752e76cb604db5-FRA',
+    connection: 'keep-alive',
+    'content-encoding': 'br',
+    'content-type': 'application/json',
+    date: 'Mon, 01 Dec 2025 20:02:19 GMT',
+    'ratelimit-limit': '2',
+    'ratelimit-policy': '2;w=1',
+    'ratelimit-remaining': '1',
+    'ratelimit-reset': '1',
+    server: 'cloudflare',
+    'transfer-encoding': 'chunked',
+    'x-resend-daily-quota': '0',
+    'x-resend-monthly-quota': '0'
+  }
+}
+DEBUG: Email sent successfully function finished
+Email sent.
+DEBUG: Request received: POST /api/auth/register
+DEBUG: registerUser called
+Creating user...
+User created: new ObjectId('692df50de5f2d612f73ca5aa')
+Sending email...
+DEBUG: Attempting to send email to: lorenzo.pelanda2001@gmail.com
+Email di verifica inviata a lorenzo.pelanda2001@gmail.com {
+  data: null,
+  error: {
+    statusCode: 403,
+    name: 'validation_error',
+    message: 'You can only send testing emails to your own email address (pelanda3246@gmail.com). To send emails to other recipients, please verify a domain at resend.com/domains, and change the `from` address to an email using this domain.'
+  },
+  headers: {
+    'cf-cache-status': 'DYNAMIC',
+    'cf-ray': '9a75333399571e52-FRA',
+    connection: 'keep-alive',
+    'content-encoding': 'br',
+    'content-type': 'application/json',
+    date: 'Mon, 01 Dec 2025 20:05:33 GMT',
+    'ratelimit-limit': '2',
+    'ratelimit-policy': '2;w=1',
+    'ratelimit-remaining': '1',
+    'ratelimit-reset': '1',
+    server: 'cloudflare',
+    'transfer-encoding': 'chunked',
+    'x-resend-daily-quota': '0',
+    'x-resend-monthly-quota': '0'
+  }
+}
+DEBUG: Email sent successfully function finished
+Email sent.
+DEBUG: Request received: POST /api/auth/register
+DEBUG: registerUser called
+Creating user...
+User created: new ObjectId('692df5afe5f2d612f73ca5ad')
+Sending email...
+DEBUG: Attempting to send email to: lorenzo.pelanda2001@gmail.com
+Email di verifica inviata a lorenzo.pelanda2001@gmail.com {
+  data: null,
+  error: {
+    statusCode: 403,
+    name: 'validation_error',
+    message: 'You can only send testing emails to your own email address (pelanda3246@gmail.com). To send emails to other recipients, please verify a domain at resend.com/domains, and change the `from` address to an email using this domain.'
+  },
+  headers: {
+    'cf-cache-status': 'DYNAMIC',
+    'cf-ray': '9a753729bb749b34-FRA',
+    connection: 'keep-alive',
+    'content-encoding': 'br',
+    'content-type': 'application/json',
+    date: 'Mon, 01 Dec 2025 20:08:15 GMT',
+    'ratelimit-limit': '2',
+    'ratelimit-policy': '2;w=1',
+    'ratelimit-remaining': '1',
+    'ratelimit-reset': '1',
+    server: 'cloudflare',
+    'transfer-encoding': 'chunked',
+    'x-resend-daily-quota': '0',
+    'x-resend-monthly-quota': '0'
+  }
+}
+DEBUG: Email sent successfully function finished
+Email sent.
+DEBUG: Request received: POST /api/auth/register
+DEBUG: registerUser called
+Creating user...
+User created: new ObjectId('692df630e5f2d612f73ca5b0')
+Sending email...
+DEBUG: Attempting to send email to: lorenzo.pelanda2001@gmail.com
+Email di verifica inviata a lorenzo.pelanda2001@gmail.com {
+  data: null,
+  error: {
+    statusCode: 403,
+    name: 'validation_error',
+    message: 'You can only send testing emails to your own email address (pelanda3246@gmail.com). To send emails to other recipients, please verify a domain at resend.com/domains, and change the `from` address to an email using this domain.'
+  },
+  headers: {
+    'cf-cache-status': 'DYNAMIC',
+    'cf-ray': '9a753a4d5946dbf0-FRA',
+    connection: 'keep-alive',
+    'content-encoding': 'br',
+    'content-type': 'application/json',
+    date: 'Mon, 01 Dec 2025 20:10:24 GMT',
+    'ratelimit-limit': '2',
+    'ratelimit-policy': '2;w=1',
+    'ratelimit-remaining': '1',
+    'ratelimit-reset': '1',
+    server: 'cloudflare',
+    'transfer-encoding': 'chunked',
+    'x-resend-daily-quota': '0',
+    'x-resend-monthly-quota': '0'
+  }
+}
+DEBUG: Email sent successfully function finished
+Email sent.
+DEBUG: Request received: POST /api/auth/register
+DEBUG: registerUser called
+Creating user...
+User created: new ObjectId('692df6a6e5f2d612f73ca5b3')
+Sending email...
+DEBUG: Attempting to send email to: lorenzo.pelanda2001@gmail.com
+Email di verifica inviata a lorenzo.pelanda2001@gmail.com {
+  data: null,
+  error: {
+    statusCode: 401,
+    name: 'validation_error',
+    message: 'API key is invalid'
+  },
+  headers: {
+    'cf-cache-status': 'DYNAMIC',
+    'cf-ray': '9a753d30c9ff1a86-FRA',
+    connection: 'keep-alive',
+    'content-length': '75',
+    'content-type': 'application/json',
+    date: 'Mon, 01 Dec 2025 20:12:22 GMT',
+    server: 'cloudflare',
+    'www-authenticate': 'error="invalid_token"'
+  }
+}
+DEBUG: Email sent successfully function finished
+Email sent.
+DEBUG: Request received: POST /api/auth/register
+DEBUG: registerUser called
+Creating user...
+User created: new ObjectId('692df774e5f2d612f73ca5b6')
+Sending email...
+DEBUG: Attempting to send email to: lorenzo.pelanda2001@gmail.com
+Email di verifica inviata a lorenzo.pelanda2001@gmail.com {
+  data: null,
+  error: {
+    statusCode: 401,
+    name: 'validation_error',
+    message: 'API key is invalid'
+  },
+  headers: {
+    'cf-cache-status': 'DYNAMIC',
+    'cf-ray': '9a754239ecd2dbb3-FRA',
+    connection: 'keep-alive',
+    'content-length': '75',
+    'content-type': 'application/json',
+    date: 'Mon, 01 Dec 2025 20:15:48 GMT',
+    server: 'cloudflare',
+    'www-authenticate': 'error="invalid_token"'
+  }
+}
+DEBUG: Email sent successfully function finished
+Email sent.
+DEBUG: Request received: POST /api/auth/register
+DEBUG: registerUser called
+Creating user...
+User created: new ObjectId('692df7f8e5f2d612f73ca5b9')
+Sending email...
+DEBUG: Attempting to send email to: lorenzo.pelanda2001@gmail.com
+Email di verifica inviata a lorenzo.pelanda2001@gmail.com {
+  data: null,
+  error: {
+    statusCode: 401,
+    name: 'validation_error',
+    message: 'API key is invalid'
+  },
+  headers: {
+    'cf-cache-status': 'DYNAMIC',
+    'cf-ray': '9a7545743fe3976a-FRA',
+    connection: 'keep-alive',
+    'content-length': '75',
+    'content-type': 'application/json',
+    date: 'Mon, 01 Dec 2025 20:18:01 GMT',
+    server: 'cloudflare',
+    'www-authenticate': 'error="invalid_token"'
+  }
+}
+DEBUG: Email sent successfully function finished
+Email sent.
+DEBUG: Request received: POST /api/auth/login
+DEBUG: Request received: POST /api/auth/register
+DEBUG: registerUser called
+Creating user...
+User created: new ObjectId('692df84ae5f2d612f73ca5bd')
+Sending email...
+DEBUG: Attempting to send email to: lorenzo.pelanda2001@gmail.com
+Email di verifica inviata a lorenzo.pelanda2001@gmail.com {
+  data: null,
+  error: {
+    statusCode: 401,
+    name: 'validation_error',
+    message: 'API key is invalid'
+  },
+  headers: {
+    'cf-cache-status': 'DYNAMIC',
+    'cf-ray': '9a754771bf19d2bb-FRA',
+    connection: 'keep-alive',
+    'content-length': '75',
+    'content-type': 'application/json',
+    date: 'Mon, 01 Dec 2025 20:19:22 GMT',
+    server: 'cloudflare',
+    'www-authenticate': 'error="invalid_token"'
+  }
+}
+DEBUG: Email sent successfully function finished
+Email sent.
+DEBUG: Request received: POST /api/auth/register
+DEBUG: registerUser called
+Creating user...
+User created: new ObjectId('692df888e5f2d612f73ca5c0')
+Sending email...
+DEBUG: Attempting to send email to: pelanda3246@gmail.com
+Email di verifica inviata a pelanda3246@gmail.com {
+  data: null,
+  error: {
+    statusCode: 401,
+    name: 'validation_error',
+    message: 'API key is invalid'
+  },
+  headers: {
+    'cf-cache-status': 'DYNAMIC',
+    'cf-ray': '9a7548f47f88dcce-FRA',
+    connection: 'keep-alive',
+    'content-length': '75',
+    'content-type': 'application/json',
+    date: 'Mon, 01 Dec 2025 20:20:24 GMT',
+    server: 'cloudflare',
+    'www-authenticate': 'error="invalid_token"'
+  }
+}
+DEBUG: Email sent successfully function finished
+Email sent.
