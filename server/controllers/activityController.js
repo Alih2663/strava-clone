@@ -108,4 +108,13 @@ const getActivityById = async (req, res) => {
     }
 };
 
-module.exports = { uploadActivity, getFeed, getActivityById };
+const getActivitiesByUserId = async (req, res) => {
+    try {
+        const activities = await Activity.find({ user: req.params.userId }).sort({ createdAt: -1 }).populate('user', 'username avatar');
+        res.json(activities);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+module.exports = { uploadActivity, getFeed, getActivityById, getActivitiesByUserId };

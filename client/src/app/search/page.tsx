@@ -4,6 +4,7 @@ import { useState } from 'react';
 import api from '@/utils/api';
 import Navbar from '@/components/Navbar';
 import { UserPlus, Check } from 'lucide-react';
+import Link from 'next/link';
 
 interface User {
     _id: string;
@@ -72,10 +73,14 @@ export default function SearchPage() {
                     {results.map((user) => (
                         <div key={user._id} className="bg-white p-4 rounded shadow flex justify-between items-center">
                             <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
-                                    {user.username[0].toUpperCase()}
-                                </div>
-                                <span className="font-semibold">{user.username}</span>
+                                <Link href={`/profile/${user._id}`}>
+                                    <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center hover:opacity-80 transition-opacity">
+                                        {user.username[0].toUpperCase()}
+                                    </div>
+                                </Link>
+                                <Link href={`/profile/${user._id}`} className="font-semibold hover:text-orange-600 hover:underline">
+                                    {user.username}
+                                </Link>
                             </div>
 
                             {user.status === 'friend' && (

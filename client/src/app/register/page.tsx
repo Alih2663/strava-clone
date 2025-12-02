@@ -5,6 +5,7 @@ import api from '@/utils/api';
 import Link from 'next/link';
 
 import SimpleNavbar from '@/components/SimpleNavbar';
+import GoogleLoginButton from '@/components/GoogleLoginButton';
 
 export default function RegisterPage() {
     const [username, setUsername] = useState('');

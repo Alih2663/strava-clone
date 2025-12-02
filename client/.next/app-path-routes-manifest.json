@@ -1,0 +1,15 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/activity/[id]/page": "/activity/[id]",
+  "/api/send/route": "/api/send",
+  "/dashboard/page": "/dashboard",
+  "/favicon.ico/route": "/favicon.ico",
+  "/friends/page": "/friends",
+  "/login/page": "/login",
+  "/page": "/",
+  "/register/page": "/register",
+  "/search/page": "/search",
+  "/upload/page": "/upload",
+  "/verify-email/page": "/verify-email"
+}

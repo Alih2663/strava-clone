@@ -98,4 +98,94 @@ const verifyEmail = async (req, res) => {
     }
 };
 
-module.exports = { registerUser, loginUser, verifyEmail };
+
+
+const { OAuth2Client } = require('google-auth-library');
+
+const googleLogin = async (req, res) => {
+    const { token } = req.body;
+
+    if (!token) {
+        return res.status(400).json({ message: 'Token non fornito' });
+    }
+
+    // Verifica che CLIENT_ID sia configurato
+    if (!process.env.CLIENT_ID) {
+        console.error('CLIENT_ID non configurato nelle variabili d\'ambiente');
+        return res.status(500).json({ message: 'Configurazione server non valida' });
+    }
+
+    const client = new OAuth2Client(process.env.CLIENT_ID);
+
+    try {
+        const ticket = await client.verifyIdToken({
+            idToken: token,
+            audience: process.env.CLIENT_ID, // Deve corrispondere al CLIENT_ID del frontend
+        });
+
+        const payload = ticket.getPayload();
+        const { name, email, sub: googleId, picture } = payload;
+
+        // Verifica che l'email sia verificata da Google
+        if (!payload.email_verified) {
+            return res.status(400).json({ message: 'Email non verificata da Google' });
+        }
+
+        let user = await User.findOne({ email });
+
+        if (user) {
+            if (!user.googleId) {
+                user.googleId = googleId;
+                user.avatar = picture || user.avatar;
+                await user.save();
+            }
+        } else {
+            let username = name.replace(/\s+/g, '').toLowerCase();
+
+            // Assicura username unico
+            let usernameExists = await User.findOne({ username });
+            let counter = 1;
+            while (usernameExists) {
+                username = `${name.replace(/\s+/g, '').toLowerCase()}${counter}`;
+                usernameExists = await User.findOne({ username });
+                counter++;
+            }
+
+            user = await User.create({
+                username,
+                email,
+                googleId,
+                avatar: picture,
+                isVerified: true,
+                password: undefined, // Non impostare password per utenti Google
+            });
+        }
+
+        res.status(200).json({
+            _id: user._id,
+            username: user.username,
+            email: user.email,
+            avatar: user.avatar,
+            token: generateToken(user._id),
+        });
+
+    } catch (error) {
+        console.error('Errore Google login:', error.message);
+
+        // Gestione errori specifici
+        if (error.message.includes('Token used too early')) {
+            return res.status(400).json({ message: 'Token non ancora valido' });
+        }
+        if (error.message.includes('Token used too late')) {
+            return res.status(400).json({ message: 'Token scaduto' });
+        }
+
+        res.status(400).json({
+            message: 'Autenticazione Google fallita',
+            error: error.message
+        });
+    }
+};
+
+module.exports = { registerUser, loginUser, verifyEmail, googleLogin };
+

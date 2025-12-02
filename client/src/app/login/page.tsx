@@ -6,6 +6,7 @@ import api from '@/utils/api';
 import Link from 'next/link';
 
 import SimpleNavbar from '@/components/SimpleNavbar';
+import GoogleLoginButton from '@/components/GoogleLoginButton';
 
 export default function LoginPage() {
     const [email, setEmail] = useState('');
@@ -58,6 +59,7 @@ export default function LoginPage() {
                             Login
                         </button>
                     </form>
+                    <GoogleLoginButton />
                     <p className="mt-4 text-center">
                         Don't have an account? <Link href="/register" className="text-blue-500">Register</Link>
                     </p>
