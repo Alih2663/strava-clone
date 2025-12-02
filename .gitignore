@@ -1,5 +1,7 @@
 server/.env
 
+server/node_modules/svix/src/webhook.test.ts
+
 # dependencies
 /node_modules
 /.pnp
