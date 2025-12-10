@@ -106,13 +106,12 @@ const googleLogin = async (req, res) => {
     const { token } = req.body;
 
     if (!token) {
-        return res.status(400).json({ message: 'Token non fornito' });
+        return res.status(400).json({ message: 'Token not provided' });
     }
 
-    // Verifica che CLIENT_ID sia configurato
     if (!process.env.CLIENT_ID) {
-        console.error('CLIENT_ID non configurato nelle variabili d\'ambiente');
-        return res.status(500).json({ message: 'Configurazione server non valida' });
+        console.error('CLIENT_ID not configured');
+        return res.status(500).json({ message: 'Server configuration invalid' });
     }
 
     const client = new OAuth2Client(process.env.CLIENT_ID);
@@ -120,15 +119,14 @@ const googleLogin = async (req, res) => {
     try {
         const ticket = await client.verifyIdToken({
             idToken: token,
-            audience: process.env.CLIENT_ID, // Deve corrispondere al CLIENT_ID del frontend
+            audience: process.env.CLIENT_ID,
         });
 
         const payload = ticket.getPayload();
         const { name, email, sub: googleId, picture } = payload;
 
-        // Verifica che l'email sia verificata da Google
         if (!payload.email_verified) {
-            return res.status(400).json({ message: 'Email non verificata da Google' });
+            return res.status(400).json({ message: 'Email not verified by Google' });
         }
 
         let user = await User.findOne({ email });
@@ -142,7 +140,6 @@ const googleLogin = async (req, res) => {
         } else {
             let username = name.replace(/\s+/g, '').toLowerCase();
 
-            // Assicura username unico
             let usernameExists = await User.findOne({ username });
             let counter = 1;
             while (usernameExists) {
@@ -157,7 +154,7 @@ const googleLogin = async (req, res) => {
                 googleId,
                 avatar: picture,
                 isVerified: true,
-                password: undefined, // Non impostare password per utenti Google
+                password: undefined,
             });
         }
 
@@ -170,18 +167,17 @@ const googleLogin = async (req, res) => {
         });
 
     } catch (error) {
-        console.error('Errore Google login:', error.message);
+        console.error('Google Login error:', error.message);
 
-        // Gestione errori specifici
         if (error.message.includes('Token used too early')) {
-            return res.status(400).json({ message: 'Token non ancora valido' });
+            return res.status(400).json({ message: 'Token not yet valid' });
         }
         if (error.message.includes('Token used too late')) {
-            return res.status(400).json({ message: 'Token scaduto' });
+            return res.status(400).json({ message: 'Token expired' });
         }
 
         res.status(400).json({
-            message: 'Autenticazione Google fallita',
+            message: 'Google authentication failed',
             error: error.message
         });
     }

@@ -3,7 +3,6 @@ const dotenv = require('dotenv');
 const User = require('../models/User');
 const path = require('path');
 
-// Try to load .env from server directory
 dotenv.config({ path: path.join(__dirname, '../.env') });
 
 const verifyUser = async () => {
@@ -21,7 +20,6 @@ const verifyUser = async () => {
         await mongoose.connect(process.env.MONGO_URI);
         console.log('MongoDB Connected');
 
-        // Try to find by email or username
         let user = await User.findOne({
             $or: [{ email: identifier }, { username: identifier }]
         });

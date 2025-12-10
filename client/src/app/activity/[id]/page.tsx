@@ -99,7 +99,7 @@ export default function ActivityPage() {
     const mapCoordinates = activity.location.coordinates.map(coord => [coord[1], coord[0]] as [number, number]);
 
     return (
-        <div className="min-h-screen bg-gray-100">
+        <div className="min-h-screen bg-gray-100 pb-32">
             <Navbar />
             <div className="container mx-auto p-4 max-w-4xl">
                 <div className="bg-white p-6 rounded-lg shadow-md mt-6">

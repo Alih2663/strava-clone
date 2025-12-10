@@ -1,22 +1,15 @@
 require('dotenv').config();
 const sgMail = require('@sendgrid/mail');
 
-// Configura SendGrid con la tua chiave API
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-/**
- * Invia un'email di verifica all'utente.
- * @param {string} to - L'indirizzo email del destinatario.
- * @param {string} username - Il nome utente.
- * @param {string} token - Il token univoco per la verifica.
- */
+
 async function sendVerificationEmail(to, username, token) {
     const verificationLink = `${process.env.FRONTEND_URL}/verify-email?token=${token}`;
 
-    // Il contenuto dell'email
     const msg = {
         to: to,
-        from: process.env.EMAIL_FROM, // L'indirizzo mittente verificato
+        from: process.env.EMAIL_FROM,
         subject: 'Confermation Strava Clone Account',
         html: `
             <div style="font-family: Arial, sans-serif;">
@@ -54,11 +47,11 @@ async function sendVerificationEmail(to, username, token) {
 
     try {
         await sgMail.send(msg);
-        console.log(`Email di verifica inviata a ${to}`);
+        console.log(`Verification email sent to ${to}`);
         return true;
     } catch (error) {
-        console.error('ERRORE invio email SendGrid:', error.response ? error.response.body : error);
-        throw new Error('Impossibile inviare l\'email di verifica.');
+        console.error('ERRORE sending email with SendGrid:', error.response ? error.response.body : error);
+        throw new Error('Error sending verification email.');
     }
 }
 

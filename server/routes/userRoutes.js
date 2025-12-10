@@ -3,6 +3,7 @@ const {
     searchUsers,
     sendFriendRequest,
     getFriendRequests,
+    getFriends,
     acceptFriendRequest,
     rejectFriendRequest,
     getUserById,
@@ -27,6 +28,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 router.get('/search', protect, searchUsers);
+router.get('/friends', protect, getFriends);
 router.get('/friend-requests', protect, getFriendRequests);
 router.post('/friend-request/:id', protect, sendFriendRequest);
 router.put('/friend-request/:id/accept', protect, acceptFriendRequest);

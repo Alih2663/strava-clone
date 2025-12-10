@@ -42,7 +42,12 @@ export default function CommentsSection({ activityId }: CommentsSectionProps) {
             socket.on(`activity_${activityId}_comments`, (newComment: Comment) => {
                 // Add the new comment (whether root or reply) to the beginning of the comments array.
                 // The existing rendering logic (rootComments, getReplies) will correctly place it.
-                setComments(prev => [newComment, ...prev]);
+                setComments(prev => {
+                    if (prev.some(c => c._id === newComment._id)) {
+                        return prev;
+                    }
+                    return [newComment, ...prev];
+                });
             });
 
             return () => {
@@ -86,7 +91,12 @@ export default function CommentsSection({ activityId }: CommentsSectionProps) {
                 parentComment: parentId
             });
 
-            setComments(prev => [data, ...prev]);
+            setComments(prev => {
+                if (prev.some(c => c._id === data._id)) {
+                    return prev;
+                }
+                return [data, ...prev];
+            });
 
             if (parentId) {
                 setReplyText({ ...replyText, [parentId]: '' });

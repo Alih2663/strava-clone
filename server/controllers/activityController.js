@@ -2,7 +2,6 @@ const Activity = require('../models/Activity');
 const toGeoJSON = require('@tmcw/togeojson');
 const { DOMParser } = require('@xmldom/xmldom');
 
-// Helper to calculate distance between two points (Haversine formula)
 const getDistanceFromLatLonInM = (lat1, lon1, lat2, lon2) => {
     const R = 6371000; // Radius of the earth in m
     const dLat = (lat2 - lat1) * (Math.PI / 180);
@@ -26,15 +25,13 @@ const uploadActivity = async (req, res) => {
         const gpx = new DOMParser().parseFromString(gpxString, 'text/xml');
         const converted = toGeoJSON.gpx(gpx);
 
-        // Assuming the first feature is the track
         const track = converted.features[0];
         if (!track || !track.geometry || track.geometry.type !== 'LineString') {
             return res.status(400).json({ message: 'Invalid GPX file' });
         }
 
-        const coordinates = track.geometry.coordinates; // [lon, lat, ele]
+        const coordinates = track.geometry.coordinates;
 
-        // Calculate stats
         let distance = 0;
         let elevationGain = 0;
 
@@ -49,10 +46,6 @@ const uploadActivity = async (req, res) => {
             }
         }
 
-        // Estimate duration if time is available in properties, otherwise 0 or user input
-        // toGeoJSON puts time in coordTimes if available, or we can parse it manually.
-        // For simplicity, let's assume we get duration from user or calculate from timestamps if available.
-        // converted.features[0].properties.coordTimes
         let duration = 0;
         if (track.properties.coordTimes && track.properties.coordTimes.length > 1) {
             const startTime = new Date(track.properties.coordTimes[0]);
@@ -87,7 +80,6 @@ const uploadActivity = async (req, res) => {
 
 const getFeed = async (req, res) => {
     try {
-        // For now, return all activities. Later filter by friends.
         const activities = await Activity.find().populate('user', 'username avatar').sort({ createdAt: -1 });
         res.json(activities);
     } catch (error) {

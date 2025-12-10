@@ -510,10 +510,17 @@ function CommentsSection({ activityId }) {
                         // Add the new comment (whether root or reply) to the beginning of the comments array.
                         // The existing rendering logic (rootComments, getReplies) will correctly place it.
                         setComments({
-                            "CommentsSection.useEffect": (prev)=>[
+                            "CommentsSection.useEffect": (prev)=>{
+                                if (prev.some({
+                                    "CommentsSection.useEffect": (c)=>c._id === newComment._id
+                                }["CommentsSection.useEffect"])) {
+                                    return prev;
+                                }
+                                return [
                                     newComment,
                                     ...prev
-                                ]
+                                ];
+                            }
                         }["CommentsSection.useEffect"]);
                     }
                 }["CommentsSection.useEffect"]);
@@ -561,10 +568,15 @@ function CommentsSection({ activityId }) {
                 text,
                 parentComment: parentId
             });
-            setComments((prev)=>[
+            setComments((prev)=>{
+                if (prev.some((c)=>c._id === data._id)) {
+                    return prev;
+                }
+                return [
                     data,
                     ...prev
-                ]);
+                ];
+            });
             if (parentId) {
                 setReplyText({
                     ...replyText,
@@ -597,7 +609,7 @@ function CommentsSection({ activityId }) {
         children: "Loading comments..."
     }, void 0, false, {
         fileName: "[project]/src/components/CommentsSection.tsx",
-        lineNumber: 118,
+        lineNumber: 128,
         columnNumber: 39
     }, this);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -611,7 +623,7 @@ function CommentsSection({ activityId }) {
                         children: "Comments"
                     }, void 0, false, {
                         fileName: "[project]/src/components/CommentsSection.tsx",
-                        lineNumber: 123,
+                        lineNumber: 133,
                         columnNumber: 17
                     }, this),
                     user && comments.length > 0 && !showAddComment && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -620,13 +632,13 @@ function CommentsSection({ activityId }) {
                         children: "Add Comment"
                     }, void 0, false, {
                         fileName: "[project]/src/components/CommentsSection.tsx",
-                        lineNumber: 125,
+                        lineNumber: 135,
                         columnNumber: 21
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/CommentsSection.tsx",
-                lineNumber: 122,
+                lineNumber: 132,
                 columnNumber: 13
             }, this),
             user && showAddComment && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -641,7 +653,7 @@ function CommentsSection({ activityId }) {
                         onChange: (e)=>setNewComment(e.target.value)
                     }, void 0, false, {
                         fileName: "[project]/src/components/CommentsSection.tsx",
-                        lineNumber: 136,
+                        lineNumber: 146,
                         columnNumber: 21
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -654,7 +666,7 @@ function CommentsSection({ activityId }) {
                                 children: "Cancel"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/CommentsSection.tsx",
-                                lineNumber: 145,
+                                lineNumber: 155,
                                 columnNumber: 29
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -664,19 +676,19 @@ function CommentsSection({ activityId }) {
                                 children: "Post Comment"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/CommentsSection.tsx",
-                                lineNumber: 153,
+                                lineNumber: 163,
                                 columnNumber: 25
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/CommentsSection.tsx",
-                        lineNumber: 143,
+                        lineNumber: 153,
                         columnNumber: 21
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/CommentsSection.tsx",
-                lineNumber: 135,
+                lineNumber: 145,
                 columnNumber: 17
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -689,7 +701,7 @@ function CommentsSection({ activityId }) {
                             children: "No comments yet."
                         }, void 0, false, {
                             fileName: "[project]/src/components/CommentsSection.tsx",
-                            lineNumber: 167,
+                            lineNumber: 177,
                             columnNumber: 25
                         }, this),
                         user && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -698,13 +710,13 @@ function CommentsSection({ activityId }) {
                             children: "Be the first to share your thoughts!"
                         }, void 0, false, {
                             fileName: "[project]/src/components/CommentsSection.tsx",
-                            lineNumber: 169,
+                            lineNumber: 179,
                             columnNumber: 29
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/CommentsSection.tsx",
-                    lineNumber: 166,
+                    lineNumber: 176,
                     columnNumber: 21
                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
                     children: [
@@ -722,7 +734,7 @@ function CommentsSection({ activityId }) {
                                                     children: comment.user.username
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/CommentsSection.tsx",
-                                                    lineNumber: 184,
+                                                    lineNumber: 194,
                                                     columnNumber: 41
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -730,18 +742,18 @@ function CommentsSection({ activityId }) {
                                                     children: formatDate(comment.createdAt)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/CommentsSection.tsx",
-                                                    lineNumber: 187,
+                                                    lineNumber: 197,
                                                     columnNumber: 41
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/CommentsSection.tsx",
-                                            lineNumber: 183,
+                                            lineNumber: 193,
                                             columnNumber: 37
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/CommentsSection.tsx",
-                                        lineNumber: 182,
+                                        lineNumber: 192,
                                         columnNumber: 33
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -749,7 +761,7 @@ function CommentsSection({ activityId }) {
                                         children: comment.text
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/CommentsSection.tsx",
-                                        lineNumber: 194,
+                                        lineNumber: 204,
                                         columnNumber: 33
                                     }, this),
                                     user && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -758,7 +770,7 @@ function CommentsSection({ activityId }) {
                                         children: "Reply"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/CommentsSection.tsx",
-                                        lineNumber: 198,
+                                        lineNumber: 208,
                                         columnNumber: 37
                                     }, this),
                                     replyingTo === comment._id && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -776,7 +788,7 @@ function CommentsSection({ activityId }) {
                                                     })
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/CommentsSection.tsx",
-                                                lineNumber: 209,
+                                                lineNumber: 219,
                                                 columnNumber: 41
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -789,7 +801,7 @@ function CommentsSection({ activityId }) {
                                                         children: "Cancel"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/CommentsSection.tsx",
-                                                        lineNumber: 217,
+                                                        lineNumber: 227,
                                                         columnNumber: 45
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -799,19 +811,19 @@ function CommentsSection({ activityId }) {
                                                         children: "Reply"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/CommentsSection.tsx",
-                                                        lineNumber: 224,
+                                                        lineNumber: 234,
                                                         columnNumber: 45
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/CommentsSection.tsx",
-                                                lineNumber: 216,
+                                                lineNumber: 226,
                                                 columnNumber: 41
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/CommentsSection.tsx",
-                                        lineNumber: 208,
+                                        lineNumber: 218,
                                         columnNumber: 37
                                     }, this),
                                     getReplies(comment._id).length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -827,7 +839,7 @@ function CommentsSection({ activityId }) {
                                                                 children: reply.user.username
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/CommentsSection.tsx",
-                                                                lineNumber: 241,
+                                                                lineNumber: 251,
                                                                 columnNumber: 53
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -835,13 +847,13 @@ function CommentsSection({ activityId }) {
                                                                 children: formatDate(reply.createdAt)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/CommentsSection.tsx",
-                                                                lineNumber: 244,
+                                                                lineNumber: 254,
                                                                 columnNumber: 53
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/components/CommentsSection.tsx",
-                                                        lineNumber: 240,
+                                                        lineNumber: 250,
                                                         columnNumber: 49
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -849,24 +861,24 @@ function CommentsSection({ activityId }) {
                                                         children: reply.text
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/CommentsSection.tsx",
-                                                        lineNumber: 248,
+                                                        lineNumber: 258,
                                                         columnNumber: 49
                                                     }, this)
                                                 ]
                                             }, reply._id, true, {
                                                 fileName: "[project]/src/components/CommentsSection.tsx",
-                                                lineNumber: 239,
+                                                lineNumber: 249,
                                                 columnNumber: 45
                                             }, this))
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/CommentsSection.tsx",
-                                        lineNumber: 237,
+                                        lineNumber: 247,
                                         columnNumber: 37
                                     }, this)
                                 ]
                             }, comment._id, true, {
                                 fileName: "[project]/src/components/CommentsSection.tsx",
-                                lineNumber: 180,
+                                lineNumber: 190,
                                 columnNumber: 29
                             }, this)),
                         page < totalPages && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -879,7 +891,7 @@ function CommentsSection({ activityId }) {
                                         children: "Load more comments"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/CommentsSection.tsx",
-                                        lineNumber: 262,
+                                        lineNumber: 272,
                                         columnNumber: 37
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
@@ -896,36 +908,36 @@ function CommentsSection({ activityId }) {
                                             d: "m6 9 6 6 6-6"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/CommentsSection.tsx",
-                                            lineNumber: 264,
+                                            lineNumber: 274,
                                             columnNumber: 41
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/CommentsSection.tsx",
-                                        lineNumber: 263,
+                                        lineNumber: 273,
                                         columnNumber: 37
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/CommentsSection.tsx",
-                                lineNumber: 258,
+                                lineNumber: 268,
                                 columnNumber: 33
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/components/CommentsSection.tsx",
-                            lineNumber: 257,
+                            lineNumber: 267,
                             columnNumber: 29
                         }, this)
                     ]
                 }, void 0, true)
             }, void 0, false, {
                 fileName: "[project]/src/components/CommentsSection.tsx",
-                lineNumber: 164,
+                lineNumber: 174,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/CommentsSection.tsx",
-        lineNumber: 121,
+        lineNumber: 131,
         columnNumber: 9
     }, this);
 }
@@ -1073,7 +1085,7 @@ function ActivityPage() {
             coord[0]
         ]);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "min-h-screen bg-gray-100",
+        className: "min-h-screen bg-gray-100 pb-32",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$Navbar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/activity/[id]/page.tsx",

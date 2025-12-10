@@ -3,7 +3,6 @@ const Activity = require('../models/Activity');
 const Notification = require('../models/Notification');
 const { getIO, getUserSocket } = require('../utils/socket');
 
-// Toggle like on an activity
 const toggleLike = async (req, res) => {
     try {
         const { activityId } = req.params;
@@ -18,17 +17,15 @@ const toggleLike = async (req, res) => {
         const io = getIO();
 
         if (existingLike) {
-            // Unlike
             await Like.findByIdAndDelete(existingLike._id);
             activity.likes = activity.likes.filter(id => id.toString() !== userId.toString());
             await activity.save();
 
-            // Emit update to everyone viewing the activity
             io.emit(`activity_${activityId}_likes`, { count: activity.likes.length, likes: activity.likes });
 
             res.json({ message: 'Unliked', liked: false, count: activity.likes.length });
         } else {
-            // Like
+
             const newLike = new Like({
                 activity: activityId,
                 user: userId
@@ -38,10 +35,8 @@ const toggleLike = async (req, res) => {
             activity.likes.push(userId);
             await activity.save();
 
-            // Emit update to everyone viewing the activity
             io.emit(`activity_${activityId}_likes`, { count: activity.likes.length, likes: activity.likes });
 
-            // Create notification if not self-like
             if (activity.user.toString() !== userId.toString()) {
                 const notification = new Notification({
                     recipient: activity.user,
@@ -52,7 +47,6 @@ const toggleLike = async (req, res) => {
                 });
                 await notification.save();
 
-                // Emit notification to recipient
                 const recipientSocketId = getUserSocket(activity.user.toString());
                 if (recipientSocketId) {
                     const populatedNotification = await Notification.findById(notification._id)

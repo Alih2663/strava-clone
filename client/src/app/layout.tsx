@@ -4,6 +4,7 @@ import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
 import { SocketProvider } from '@/context/SocketContext';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import { ChatProvider } from '@/context/ChatContext';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,7 +27,9 @@ export default function RootLayout({
         <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!}>
           <AuthProvider>
             <SocketProvider>
-              {children}
+              <ChatProvider>
+                {children}
+              </ChatProvider>
             </SocketProvider>
           </AuthProvider>
         </GoogleOAuthProvider>

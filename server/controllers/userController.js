@@ -87,6 +87,16 @@ const getFriendRequests = async (req, res) => {
     }
 };
 
+// Get user friends
+const getFriends = async (req, res) => {
+    try {
+        const user = await User.findById(req.user._id).populate('friends', 'username avatar');
+        res.json(user.friends);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
 // Accept friend request
 const acceptFriendRequest = async (req, res) => {
     try {
@@ -178,4 +188,4 @@ const updateProfile = async (req, res) => {
     }
 };
 
-module.exports = { searchUsers, sendFriendRequest, getFriendRequests, acceptFriendRequest, rejectFriendRequest, getUserById, updateProfile };
+module.exports = { searchUsers, sendFriendRequest, getFriendRequests, getFriends, acceptFriendRequest, rejectFriendRequest, getUserById, updateProfile };

@@ -1,30 +1,34 @@
 let io;
-const userSocketMap = {}; // Map userId to socketId
+const userSocketMap = new Map();
 
 const initSocket = (server) => {
     io = require('socket.io')(server, {
         cors: {
-            origin: "http://localhost:3001",
-            methods: ["GET", "POST"]
-        }
+            origin: process.env.CLIENT_URL || "http://localhost:3001",
+            methods: ["GET", "POST"],
+            credentials: true
+        },
+        transports: ['websocket', 'polling']
     });
 
     io.on('connection', (socket) => {
         console.log('New client connected', socket.id);
 
         socket.on('join', (userId) => {
-            if (userId) {
-                userSocketMap[userId] = socket.id;
-                console.log(`User ${userId} mapped to socket ${socket.id}`);
-            }
+            if (!userId) return;
+            const set = userSocketMap.get(userId) || new Set();
+            set.add(socket.id);
+            userSocketMap.set(userId, set);
+            console.log(`User ${userId} mapped to sockets`, Array.from(set));
         });
 
         socket.on('disconnect', () => {
             console.log('Client disconnected', socket.id);
-            // Remove user from map on disconnect
-            for (const [userId, socketId] of Object.entries(userSocketMap)) {
-                if (socketId === socket.id) {
-                    delete userSocketMap[userId];
+            for (const [userId, set] of userSocketMap.entries()) {
+                if (set.has(socket.id)) {
+                    set.delete(socket.id);
+                    if (set.size === 0) userSocketMap.delete(userId);
+                    else userSocketMap.set(userId, set);
                     break;
                 }
             }
@@ -39,6 +43,11 @@ const getIO = () => {
         throw new Error('Socket.io not initialized!');
     }
     return io;
+};
+
+const getUserSockets = (userId) => {
+    const set = userSocketMap.get(userId);
+    return set ? Array.from(set) : undefined;
 };
 
 const getUserSocket = (userId) => {
