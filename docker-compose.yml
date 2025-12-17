@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:latest
+    container_name: strava_mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  redis:
+    image: redis:alpine
+    container_name: strava_redis
+    ports:
+      - "6379:6379"
+
+  server:
+    build: ./server
+    container_name: strava_server
+    ports:
+      - "5000:5000" 
+    env_file:
+      - ./server/.env
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/strava_clone
+    depends_on:
+      - mongo
+
+
+  chat_server:
+    build: ./chat_server
+    container_name: strava_chat
+    ports:
+      - "3000:3000" 
+    env_file:
+      - ./chat_server/.env
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/strava_clone
+      - REDIS_HOST=redis
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - mongo
+      - redis
+
+  client:
+    build: ./client
+    container_name: strava_client
+    ports:
+      - "3001:3001" 
+    env_file:
+      - ./client/.env.local
+    depends_on:
+      - server
+
+volumes:
+  mongo_data:
