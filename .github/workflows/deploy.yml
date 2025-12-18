@@ -20,21 +20,9 @@ jobs:
         username: ubuntu
         key: ${{ secrets.EC2_KEY }}
         script: |
-          if [ ! -d "~/strava-clone" ]; then
-            git clone https://github.com/Alih2663/strava-clone.git ~/strava-clone
-          fi
-          
+          [ -d "~/strava-clone" ] || git clone https://github.com/Alih2663/strava-clone.git ~/strava-clone
           cd ~/strava-clone
           git fetch origin main
           git reset --hard origin/main
-          
-          sudo MONGO_URI="${{ secrets.MONGO_URI }}" \
-               JWT_SECRET="${{ secrets.JWT_SECRET }}" \
-               SENDGRID_API_KEY="${{ secrets.SENDGRID_API_KEY }}" \
-               CLIENT_ID="${{ secrets.CLIENT_ID }}" \
-               CLIENT_SECRET="${{ secrets.CLIENT_SECRET }}" \
-               RESEND_API_KEY="${{ secrets.RESEND_API_KEY }}" \
-               PUBLIC_IP="${{ secrets.EC2_HOST }}" \
-               docker-compose up -d --build
-               
+          sudo MONGO_URI="${{ secrets.MONGO_URI }}" JWT_SECRET="${{ secrets.JWT_SECRET }}" SENDGRID_API_KEY="${{ secrets.SENDGRID_API_KEY }}" CLIENT_ID="${{ secrets.CLIENT_ID }}" CLIENT_SECRET="${{ secrets.CLIENT_SECRET }}" RESEND_API_KEY="${{ secrets.RESEND_API_KEY }}" PUBLIC_IP="${{ secrets.EC2_HOST }}" docker-compose up -d --build
           sudo docker image prune -f
