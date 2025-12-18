@@ -51,6 +51,7 @@ services:
   client:
     build: ./client
     container_name: strava_client
+    shm_size: '256mb'
     environment:
       - PORT=3001
       - REACT_APP_API_URL=http://${PUBLIC_IP}:5000
