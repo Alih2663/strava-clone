@@ -45,11 +45,13 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
 
     // Create a dedicated API instance for the chat server
     const chatApi = axios.create({
-        baseURL: 'http://localhost:3000/api',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
+        baseURL: process.env.NEXT_PUBLIC_CHAT_URL 
+        ? `${process.env.NEXT_PUBLIC_CHAT_URL}/api` 
+        : 'http://localhost:3000/api',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+});
 
     // Add auth token to chat API requests
     chatApi.interceptors.request.use((config) => {
@@ -62,11 +64,11 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
 
     useEffect(() => {
         if (user) {
-            const newSocket = io('http://localhost:3000', {
-                auth: {
-                    userId: user._id
-                }
-            });
+            const newSocket = io(process.env.NEXT_PUBLIC_CHAT_URL || 'http://localhost:3000', {
+    auth: {
+        userId: user._id
+    }
+});
             setSocket(newSocket);
 
             newSocket.on('connect', () => {

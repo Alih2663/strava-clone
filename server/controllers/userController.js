@@ -160,13 +160,17 @@ const getUserById = async (req, res) => {
 };
 
 // Update user profile
+
+const baseUrl = process.env.PUBLIC_IP 
+    ? `http://${process.env.PUBLIC_IP}:5000` 
+    : 'http://localhost:5000';
 const updateProfile = async (req, res) => {
     try {
         const user = await User.findById(req.user._id);
         if (user) {
             user.bio = req.body.bio || user.bio;
             if (req.file) {
-                user.avatar = `http://localhost:5000/${req.file.path}`;
+                user.avatar = `${baseUrl}/${req.file.path}`;
             } else if (req.body.avatar) {
                 user.avatar = req.body.avatar;
             }

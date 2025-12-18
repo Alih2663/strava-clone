@@ -4,7 +4,11 @@ const userSocketMap = new Map();
 const initSocket = (server) => {
     io = require('socket.io')(server, {
         cors: {
-            origin: process.env.CLIENT_URL || "http://localhost:3001",
+            origin: [
+    process.env.CLIENT_URL, 
+    "http://localhost:3001", 
+    `http://${process.env.PUBLIC_IP}:3001`
+].filter(Boolean),
             methods: ["GET", "POST"],
             credentials: true
         },
