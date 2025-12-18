@@ -18,12 +18,16 @@ services:
   server:
     build: ./server
     container_name: strava_server
-    ports:
-      - "5000:5000" 
-    env_file:
-      - ./server/.env
     environment:
-      - MONGO_URI=mongodb://mongo:27017/strava_clone
+      - PORT=5000
+      - MONGO_URI=${MONGO_URI}
+      - JWT_SECRET=${JWT_SECRET}
+      - SENDGRID_API_KEY=${SENDGRID_API_KEY}
+      - GOOGLE_CLIENT_ID=${CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${CLIENT_SECRET}
+      - FRONTEND_URL=http://${PUBLIC_IP}:3001
+    ports:
+      - "5000:5000"
     depends_on:
       - mongo
 
@@ -32,13 +36,14 @@ services:
     build: ./chat_server
     container_name: strava_chat
     ports:
-      - "3000:3000" 
-    env_file:
-      - ./chat_server/.env
+      - "3000:3000"
+
     environment:
-      - MONGO_URI=mongodb://mongo:27017/strava_clone
+      - PORT=3000
+      - MONGO_URI=${MONGO_URI}
       - REDIS_HOST=redis
       - REDIS_URL=redis://redis:6379
+      - PUBLIC_IP=${PUBLIC_IP}
     depends_on:
       - mongo
       - redis
@@ -46,12 +51,13 @@ services:
   client:
     build: ./client
     container_name: strava_client
+    environment:
+      - PORT=3001
+      - REACT_APP_API_URL=http://${PUBLIC_IP}:5000
+      - REACT_APP_CHAT_URL=http://${PUBLIC_IP}:3000
+      - RESEND_API_KEY=${RESEND_API_KEY}
     ports:
-      - "3001:3001" 
-    env_file:
-      - ./client/.env.local
-    depends_on:
-      - server
+      - "3001:3001"
 
 volumes:
   mongo_data:
