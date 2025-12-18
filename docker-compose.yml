@@ -17,7 +17,7 @@ services:
 
   server:
     build: ./server
-    container_name: strava_server
+    container_name: stra_server
     environment:
       - PORT=5000
       - MONGO_URI=${MONGO_URI}
@@ -26,18 +26,17 @@ services:
       - GOOGLE_CLIENT_ID=${CLIENT_ID}
       - GOOGLE_CLIENT_SECRET=${CLIENT_SECRET}
       - FRONTEND_URL=http://${PUBLIC_IP}:3001
+      - RESEND_API_KEY=${RESEND_API_KEY}
     ports:
       - "5000:5000"
     depends_on:
       - mongo
-
 
   chat_server:
     build: ./chat_server
     container_name: strava_chat
     ports:
       - "3000:3000"
-
     environment:
       - PORT=3000
       - MONGO_URI=${MONGO_URI}
@@ -52,12 +51,14 @@ services:
     build:
       context: ./client
       args:
+        - PUBLIC_IP=${PUBLIC_IP}
         - RESEND_API_KEY=${RESEND_API_KEY}
     container_name: strava_client
     environment:
       - PORT=3001
       - REACT_APP_API_URL=http://${PUBLIC_IP}:5000
       - REACT_APP_CHAT_URL=http://${PUBLIC_IP}:3000
+      - PUBLIC_IP=${PUBLIC_IP}
       - RESEND_API_KEY=${RESEND_API_KEY}
     ports:
       - "3001:3001"

@@ -43,3 +43,9 @@ yarn-error.log*
 next-env.d.tsclient/node_modules/
 client/node_modules/
 node_modules/
+
+# terraform
+terraform.tfstate
+terraform.tfstate.backup
+.terraform/
+.terraform.lock.hcl
