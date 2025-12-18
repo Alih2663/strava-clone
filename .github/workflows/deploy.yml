@@ -27,6 +27,7 @@ jobs:
           cd ~/strava-clone
           git fetch origin main
           git reset --hard origin/main
+          
           sudo MONGO_URI="${{ secrets.MONGO_URI }}" \
                JWT_SECRET="${{ secrets.JWT_SECRET }}" \
                SENDGRID_API_KEY="${{ secrets.SENDGRID_API_KEY }}" \
