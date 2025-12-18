@@ -49,9 +49,11 @@ services:
       - redis
 
   client:
-    build: ./client
+    build:
+      context: ./client
+      args:
+        - RESEND_API_KEY=${RESEND_API_KEY}
     container_name: strava_client
-    shm_size: '256mb'
     environment:
       - PORT=3001
       - REACT_APP_API_URL=http://${PUBLIC_IP}:5000
