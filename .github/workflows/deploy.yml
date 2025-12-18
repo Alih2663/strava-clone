@@ -3,7 +3,7 @@ name: Deploy to AWS EC2
 on:
   push:
     branches:
-      - main  #CI/CD MAIN BRANCH DEPLOYED
+      - main
 
 jobs:
   deploy:
@@ -16,12 +16,15 @@ jobs:
     - name: Deploy to EC2 via SSH
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.EC2_HOST }}    #IP ADDRESS WILL CHANGE 
-        username: ubuntu                  
-        key: ${{ secrets.EC2_KEY }}       
+        host: ${{ secrets.EC2_HOST }}
+        username: ubuntu
+        key: ${{ secrets.EC2_KEY }}
         script: |
-          cd ~/strava-clone || { echo "clasor didnt find it ..."; git clone https://github.com/Alih2663/strava-clone.git ~/strava-clone; cd ~/strava-clone; }
-
+          if [ ! -d "~/strava-clone" ]; then
+            git clone https://github.com/Alih2663/strava-clone.git ~/strava-clone
+          fi
+          
+          cd ~/strava-clone
           git fetch origin main
           git reset --hard origin/main
           sudo MONGO_URI="${{ secrets.MONGO_URI }}" \
@@ -32,4 +35,5 @@ jobs:
                RESEND_API_KEY="${{ secrets.RESEND_API_KEY }}" \
                PUBLIC_IP="${{ secrets.EC2_HOST }}" \
                docker-compose up -d --build
+               
           sudo docker image prune -f
