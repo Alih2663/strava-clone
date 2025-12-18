@@ -1,5 +1,7 @@
 
 FROM node:20-alpine
+ARG RESEND_API_KEY
+ENV RESEND_API_KEY=$RESEND_API_KEY
 WORKDIR /app
 COPY package*.json ./
 RUN npm install

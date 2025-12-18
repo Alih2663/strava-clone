@@ -27,7 +27,6 @@ jobs:
           git fetch origin main
           git reset --hard origin/main
 
-          # Read secrets and create .env file
           cat <<EOF > .env
           MONGO_URI=${{ secrets.MONGO_URI }}
           JWT_SECRET=${{ secrets.JWT_SECRET }}
@@ -38,6 +37,6 @@ jobs:
           PUBLIC_IP=${{ secrets.EC2_HOST }}
           EOF
 
-          sudo docker-compose --env-file .env up -d --build
+          sudo RESEND_API_KEY=${{ secrets.RESEND_API_KEY }} docker-compose up -d --build
           rm .env
           sudo docker image prune -f
