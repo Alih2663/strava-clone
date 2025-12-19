@@ -28,6 +28,7 @@ jobs:
           git reset --hard origin/main
 
           cat <<EOF > .env
+          export EMAIL_FROM=${{ secrets.EMAIL_FROM }}
           MONGO_URI=${{ secrets.MONGO_URI }}
           JWT_SECRET=${{ secrets.JWT_SECRET }}
           SENDGRID_API_KEY=${{ secrets.SENDGRID_API_KEY }}

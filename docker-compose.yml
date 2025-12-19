@@ -30,6 +30,7 @@ services:
       - PUBLIC_IP=${PUBLIC_IP}
       - CHAT_URL=http://${PUBLIC_IP}:3000
       - CLIENT_URL=http://${PUBLIC_IP}:3001
+      - EMAIL_FROM=${EMAIL_FROM}
     ports:
       - "5000:5000"
     depends_on:
@@ -59,8 +60,8 @@ services:
     container_name: strava_client
     environment:
       - PORT=3001
-      - NEXT_APP_API_URL=http://${PUBLIC_IP}:5000
-      - NEXT_APP_CHAT_URL=http://${PUBLIC_IP}:3000
+      - NEXT_PUBLIC_API_URL=http://${PUBLIC_IP}:5000
+      - NEXT_PUBLIC_CHAT_URL=http://${PUBLIC_IP}:3000
       - PUBLIC_IP=${PUBLIC_IP}
       - RESEND_API_KEY=${RESEND_API_KEY}
     ports:
