@@ -1,8 +1,6 @@
-#STRAVA CLONE
+— CLOUD INFRASTRUCTURE & DEVOPS ENGINEERING —
+Architected and deployed a containerized microservices infrastructure for a Strava-style platform on AWS EC2 using Terraform for Infrastructure as Code (IaC). I focused on building a scalable, production-ready environment to host multiple Express services and a Next.js frontend within a unified Docker network.
 
-- DOCKER AND EC2 WITH TERRAFORM APPLIED --
+The core of my work involved engineering a high-performance Nginx Reverse Proxy to manage REST APIs and real-time Socket.io traffic with SSL/TLS encryption. I optimized the communication layer using Redis for low-latency message caching and designed the system for high-concurrency scaling.
 
-Developed a simplified Strava-style platform that allows users to share their running and cycling activities with friends. The system is composed of two Express-based backend servers connected to a MongoDB database, and a dedicated Express server that handles a fully responsive frontend built with Next.js.
-
-The platform supports email and Google authentication, GPX file uploads, activity comments, friend connections, and likes. I also implemented a real-time chat system using Socket.io, designed to scale to millions of simultaneous users. To achieve high performance and low latency, message caching and communication layers are optimized through a Redis database..
-
+The entire infrastructure is automated through a GitHub Actions CI/CD pipeline, achieving a zero-touch deployment cycle with persistent MongoDB storage and Cloudflare DNS management.
