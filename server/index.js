@@ -18,6 +18,7 @@ const { Server } = require('socket.io');
 const { initSocket } = require('./utils/socket');
 
 const app = express();
+app.use(express.json())
 const server = http.createServer(app);
 const io = initSocket(server);
 
