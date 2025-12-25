@@ -38,6 +38,8 @@ jobs:
           PUBLIC_IP=stravaclone.bar
           EOF
 
+          sudo docker-compose down || true
+          
           sudo PUBLIC_IP=stravaclone.bar RESEND_API_KEY=${{ secrets.RESEND_API_KEY }} docker-compose up -d --build
           
           sudo docker image prune -f
