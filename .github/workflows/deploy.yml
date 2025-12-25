@@ -16,7 +16,7 @@ jobs:
     - name: Deploy to EC2 via SSH
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.EC2_HOST }}
+        host: ${{ secrets.EC2_HOST }} # BURASI IP ADRESİ OLMALI (Secrets'ta düzelt)
         username: ubuntu
         key: ${{ secrets.EC2_KEY }}
         script: |
@@ -27,6 +27,7 @@ jobs:
           git fetch origin main
           git reset --hard origin/main
 
+          # BURADA PUBLIC_IP DOMAIN OLARAK SABİTLENDİ
           cat <<EOF > .env
           export EMAIL_FROM=${{ secrets.EMAIL_FROM }}
           MONGO_URI=${{ secrets.MONGO_URI }}
@@ -40,6 +41,7 @@ jobs:
 
           sudo docker-compose down || true
           
+          # Build alırken PUBLIC_IP domain olarak gidiyor
           sudo PUBLIC_IP=stravaclone.bar RESEND_API_KEY=${{ secrets.RESEND_API_KEY }} docker-compose up -d --build
           
           sudo docker image prune -f

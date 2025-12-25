@@ -25,11 +25,11 @@ services:
       - SENDGRID_API_KEY=${SENDGRID_API_KEY}
       - GOOGLE_CLIENT_ID=${CLIENT_ID}
       - GOOGLE_CLIENT_SECRET=${CLIENT_SECRET}
-      - FRONTEND_URL=http://${PUBLIC_IP}:3001
+      - FRONTEND_URL=https://${PUBLIC_IP}
       - RESEND_API_KEY=${RESEND_API_KEY}
       - PUBLIC_IP=${PUBLIC_IP}
-      - CHAT_URL=http://${PUBLIC_IP}:3000
-      - CLIENT_URL=http://${PUBLIC_IP}:3001
+      - CHAT_URL=https://${PUBLIC_IP}
+      - CLIENT_URL=https://${PUBLIC_IP}
       - EMAIL_FROM=${EMAIL_FROM}
     ports:
       - "5000:5000"
@@ -60,8 +60,10 @@ services:
     container_name: strava_client
     environment:
       - PORT=3001
-      - NEXT_PUBLIC_API_URL=http://${PUBLIC_IP}:5000
-      - NEXT_PUBLIC_CHAT_URL=http://${PUBLIC_IP}:3000
+      - NEXT_PUBLIC_API_URL=https://${PUBLIC_IP}/api
+      - REACT_APP_API_URL=https://${PUBLIC_IP}/api
+      - NEXT_PUBLIC_CHAT_URL=https://${PUBLIC_IP}
+      - REACT_APP_CHAT_URL=https://${PUBLIC_IP}
       - PUBLIC_IP=${PUBLIC_IP}
       - RESEND_API_KEY=${RESEND_API_KEY}
     ports:
