@@ -35,9 +35,9 @@ jobs:
           CLIENT_ID=${{ secrets.CLIENT_ID }}
           CLIENT_SECRET=${{ secrets.CLIENT_SECRET }}
           RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}
-          PUBLIC_IP=${{ secrets.EC2_HOST }}
+          PUBLIC_IP=stravaclone.bar
           EOF
 
-          sudo PUBLIC_IP=${{ secrets.EC2_HOST }} RESEND_API_KEY=${{ secrets.RESEND_API_KEY }} docker-compose up -d --build
+          sudo PUBLIC_IP=stravaclone.bar RESEND_API_KEY=${{ secrets.RESEND_API_KEY }} docker-compose up -d --build
           
           sudo docker image prune -f
