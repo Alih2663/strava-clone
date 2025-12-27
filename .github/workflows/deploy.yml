@@ -36,12 +36,12 @@ jobs:
           CLIENT_ID=${{ secrets.CLIENT_ID }}
           CLIENT_SECRET=${{ secrets.CLIENT_SECRET }}
           RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}
-          PUBLIC_IP=stravaclone.bar
+          PUBLIC_IP=stravaclone.online
           EOF
 
           sudo docker-compose down || true
           
           # Build alırken PUBLIC_IP domain olarak gidiyor
-          sudo PUBLIC_IP=stravaclone.bar RESEND_API_KEY=${{ secrets.RESEND_API_KEY }} docker-compose up -d --build
+          sudo PUBLIC_IP=stravaclone.online RESEND_API_KEY=${{ secrets.RESEND_API_KEY }} docker-compose up -d --build
           
           sudo docker image prune -f
